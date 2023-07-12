@@ -1,2 +1,3 @@
 /random/
 /__pycache__/
+*.ipynb
