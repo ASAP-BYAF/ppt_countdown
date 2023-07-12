@@ -5,22 +5,32 @@ from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
 from color_code_to_RGB import color_code_to_RGB_func
 
 
-def add_box_func(sld, fontsize=Pt(200), text="SAMPLE", text_RGB=RGBColor(0, 0, 0), lm=Pt(100), tm=Pt(200), h=Pt(50), w=Pt(500) ):
+def add_box_func(sld, fontsize=Pt(200), text=None, text_RGB=RGBColor(0, 0, 0), \
+                 bg_RGB=None, lm=Pt(0), tm=Pt(0), h=Pt(1000), w=Pt(1000) ):
 
     # textbox のサイズを指定(height, width は適当でもよさそう)
     left = lm
     top = tm
     height = h
     width = w
+
+    # テキストボックスを追加
     shp = sld.shapes.add_textbox(left, top, width, height)
 
-    tfrm = shp.text_frame
-    pg = tfrm.paragraphs[0]
-    pg.text = text
-    pg.font.size = fontsize
-    pg.alignment = PP_ALIGN.CENTER
-    pg.font.color.rgb = text_RGB
-    tfrm.vertical_anchor = MSO_ANCHOR.MIDDLE
+    # 背景色の設定
+    if bg_RGB:
+        shp.fill.solid()
+        shp.fill.fore_color.rgb = bg_RGB
+
+    # 文字の設定
+    if text:
+        tfrm = shp.text_frame
+        pg = tfrm.paragraphs[0]
+        pg.text = text
+        pg.font.size = fontsize
+        pg.alignment = PP_ALIGN.CENTER
+        pg.font.color.rgb = text_RGB
+        tfrm.vertical_anchor = MSO_ANCHOR.MIDDLE
 
     # ### fig1
     # # 丸角四角形の挿入
