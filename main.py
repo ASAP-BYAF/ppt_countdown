@@ -14,12 +14,12 @@ from add_days import add_days_func
 
 ### Input
 date_st = '2023-07-12'
-date_ed = '2024-03-31'
+date_ed = '2023-07-15'
 
 prs = pptx.Presentation()
 delta_days = calc_delta_days_func(date_st, date_ed)
 date_now = date_st
-for i in range(delta_days, -1, -1):
+for i in range(delta_days-1, -1, -1):
     # 新しいスライドを末尾に追加
     add_new_slide_func(prs) 
     last_sld = prs.slides[-1]
