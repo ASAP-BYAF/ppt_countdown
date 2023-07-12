@@ -10,11 +10,9 @@ from calc_delta_days import calc_delta_days_func
 ### Input
 date_st = '2023-07-12'
 date_ed = '2024-03-31'
-ppt_inputfile = os.path.join('blank.pptx')
 
+prs = pptx.Presentation()
 delta_days = calc_delta_days_func(date_st, date_ed)
-
-prs = pptx.Presentation(ppt_inputfile)
 for i in range(delta_days, -1, -1):
     # date = calc_date_func() # 日付の始点と経過日数から日付を計算
     add_new_slide_func(prs)
