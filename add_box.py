@@ -1,10 +1,11 @@
 import pptx
 from pptx.util import Pt
+from pptx.dml.color import RGBColor
 from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
 from color_code_to_RGB import color_code_to_RGB_func
 
 
-def add_box_func(sld, fontsize=Pt(200), text="SAMPLE",  text_color='#000000',lm=Pt(100), tm=Pt(200), h=Pt(50), w=Pt(500) ):
+def add_box_func(sld, fontsize=Pt(200), text="SAMPLE", text_RGB=RGBColor(0, 0, 0), lm=Pt(100), tm=Pt(200), h=Pt(50), w=Pt(500) ):
 
     # textbox のサイズを指定(height, width は適当でもよさそう)
     left = lm
@@ -18,7 +19,7 @@ def add_box_func(sld, fontsize=Pt(200), text="SAMPLE",  text_color='#000000',lm=
     pg.text = text
     pg.font.size = fontsize
     pg.alignment = PP_ALIGN.CENTER
-    pg.font.color.rgb = color_code_to_RGB_func(text_color)
+    pg.font.color.rgb = text_RGB
     tfrm.vertical_anchor = MSO_ANCHOR.MIDDLE
 
     # ### fig1
