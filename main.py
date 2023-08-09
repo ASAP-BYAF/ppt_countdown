@@ -13,11 +13,13 @@ from add_date import add_date_func
 from add_days import add_days_func
 from color_code_to_RGB import color_code_to_RGB_func
 from color_to_complement_color import color_to_complement_color_func
+from find_grad_st import find_grad_st_func
+from move_color import move_color_func
 
 ### Input
 date_st = '2023-08-09'
 date_ed = '2024-03-31'
-bg_color = '#ffffff'
+bg_color = '#ff0000'
 
 prs = pptx.Presentation()
 delta_days = calc_delta_days_func(date_st, date_ed)
@@ -28,6 +30,9 @@ bg_rgb = color_code_to_RGB_func(bg_color)
 
 # テキストの色は背景色の補色
 text_rgb = color_to_complement_color_func(bg_rgb['r'], bg_rgb['g'], bg_rgb['b'])
+
+# グラデーションの開始場所と置換する向き、それに対する終点を求める
+place, direction, final_point = find_grad_st_func(bg_rgb['r'], bg_rgb['g'], bg_rgb['b'])
 
 for i in range(delta_days, -1, -1):
     # 新しいスライドを末尾に追加
@@ -47,6 +52,12 @@ for i in range(delta_days, -1, -1):
 
     # 日付を更新
     date_now = add_days_func(date_now) 
+
+    # 色を更新
+    bg_rgb['r'], bg_rgb['g'], bg_rgb['b'],place, direction, final_point \
+        = move_color_func(bg_rgb['r'], bg_rgb['g'], bg_rgb['b'],place,direction,final_point)
+    text_rgb = color_to_complement_color_func(bg_rgb['r'], bg_rgb['g'], bg_rgb['b'])
+    print(bg_rgb['r'], bg_rgb['g'], bg_rgb['b'])
 
 outputdir = 'random'
 if not os.path.isdir(outputdir):
