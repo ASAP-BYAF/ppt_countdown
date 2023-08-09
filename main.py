@@ -12,20 +12,22 @@ from add_box import add_box_func
 from add_date import add_date_func
 from add_days import add_days_func
 from color_code_to_RGB import color_code_to_RGB_func
+from color_to_complement_color import color_to_complement_color_func
 
 ### Input
 date_st = '2023-08-09'
 date_ed = '2024-03-31'
-bg_color = '#00ff00'
-text_color = '#00ffff'
+bg_color = '#ffffff'
 
 prs = pptx.Presentation()
 delta_days = calc_delta_days_func(date_st, date_ed)
 date_now = date_st
 
-# カラーコードを RGBColor オブジェクトに変換
+# 背景色のカラーコードを r,g,b の10進数の値の辞書型に変換
 bg_rgb = color_code_to_RGB_func(bg_color)
-text_rgb = color_code_to_RGB_func(text_color)
+
+# テキストの色は背景色の補色
+text_rgb = color_to_complement_color_func(bg_rgb['r'], bg_rgb['g'], bg_rgb['b'])
 
 for i in range(delta_days, -1, -1):
     # 新しいスライドを末尾に追加
