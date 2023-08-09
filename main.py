@@ -24,12 +24,16 @@ for i in range(delta_days, -1, -1):
     add_new_slide_func(prs) 
     last_sld = prs.slides[-1]
 
-    # 背景色を設定(直接背景色の設定は難しそうなので大きめの色付きテキストボックスを配置)
+    # 背景色を設定
+    # (直接背景色の設定は難しそうなので大きめの色付きテキストボックスを配置
+    #　そのせいで少しスライドが大きく見える。スライドショーにすれば文字は真ん中に来る。)
     add_box_func(last_sld, bg_RGB=RGBColor(0, 0, 0))
-    add_count_func(last_sld, str(i))
+
+    # 最後のスライドに残り日数を追加
+    add_count_func(last_sld, str(i), text_RGB=RGBColor(255, 0, 0))
     
     # 最後のスライドに日付を追加
-    add_date_func(last_sld, date_now)
+    add_date_func(last_sld, date_now, text_RGB=RGBColor(255, 0, 0))
 
     # 日付を更新
     date_now = add_days_func(date_now) 
